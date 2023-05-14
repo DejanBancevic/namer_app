@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
 import 'package:csv/csv.dart';
-import 'dart:io';
+//import 'dart:io';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,13 +17,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'DnD_Namer_App',
+        title: 'dnd_namer_app',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme:
-              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 38, 0)),
+              ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 38, 0)),
         ),
-        home: MyHomePage(),
+        home: const MyHomePage(),
       ),
     );
   }
@@ -50,10 +50,10 @@ class MyAppState extends ChangeNotifier {
   }
 
   void getNextHuman() async {
-    final _rawData = await rootBundle.loadString("assets/human_names.csv");
-    List<dynamic> _listData = const CsvToListConverter().convert(_rawData);
+    final rawData = await rootBundle.loadString("assets/human_names.csv");
+    List<dynamic> listData = const CsvToListConverter().convert(rawData);
 
-    humanNames = _listData;
+    humanNames = listData;
     var humanNamesFinal = [for (var list in humanNames) ...list];
 
     currentHuman = getRandomElement(humanNamesFinal);
@@ -61,10 +61,10 @@ class MyAppState extends ChangeNotifier {
   }
 
   void getNextDwarf() async {
-    final _rawData = await rootBundle.loadString("assets/dwarf_names.csv");
-    List<dynamic> _listData = const CsvToListConverter().convert(_rawData);
+    final rawData = await rootBundle.loadString("assets/dwarf_names.csv");
+    List<dynamic> listData = const CsvToListConverter().convert(rawData);
 
-    dwarfNames = _listData;
+    dwarfNames = listData;
     var dwarfNamesFinal = [for (var list in dwarfNames) ...list];
 
     currentDwarf = getRandomElement(dwarfNamesFinal);
@@ -72,10 +72,10 @@ class MyAppState extends ChangeNotifier {
   }
 
   void getNextElf() async {
-    final _rawData = await rootBundle.loadString("assets/elf_names.csv");
-    List<dynamic> _listData = const CsvToListConverter().convert(_rawData);
+    final rawData = await rootBundle.loadString("assets/elf_names.csv");
+    List<dynamic> listData = const CsvToListConverter().convert(rawData);
 
-    elfNames = _listData;
+    elfNames = listData;
     var elfNamesFinal = [for (var list in elfNames) ...list];
 
     currentElf = getRandomElement(elfNamesFinal);
@@ -113,6 +113,8 @@ class MyAppState extends ChangeNotifier {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -125,19 +127,19 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = Human();
+        page = const Human();
         break;
       case 1:
-        page = Achive();
+        page = const Achive();
         break;
       case 2:
-        page = Human();
+        page = const Human();
         break;
       case 3:
-        page = Dwarf();
+        page = const Dwarf();
         break;
       case 4:
-        page = Elf();
+        page = const Elf();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -152,21 +154,21 @@ class _MyHomePageState extends State<MyHomePage> {
               destinations: [
                 NavigationRailDestination(
                   icon: Image.asset('assets/dnd.png'),
-                  label: Text('Logo'),
+                  label: const Text('Logo'),
                 ),
-                NavigationRailDestination(
+                const NavigationRailDestination(
                   icon: Icon(Icons.favorite),
                   label: Text('Favorites'),
                 ),
-                NavigationRailDestination(
+                const NavigationRailDestination(
                   icon: Icon(Icons.face),
                   label: Text('Human'),
                 ),
-                NavigationRailDestination(
+                const NavigationRailDestination(
                   icon: Icon(Icons.paid),
                   label: Text('Dwarf'),
                 ),
-                NavigationRailDestination(
+                const NavigationRailDestination(
                   icon: Icon(Icons.forest),
                   label: Text('Elf'),
                 ),
@@ -192,12 +194,14 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class Achive extends StatelessWidget {
+  const Achive({super.key});
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    var Human = appState.currentHuman;
-    var Dwarf = appState.currentDwarf;
-    var Elf = appState.currentElf;
+    //var Human = appState.currentHuman;
+    //var Dwarf = appState.currentDwarf;
+    //var Elf = appState.currentElf;
 
     return ListView(
       children: [
@@ -205,14 +209,15 @@ class Achive extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Text(
             'You have ' '${appState.favorites.length} favorites:',
-            style: TextStyle(
+            style: const TextStyle(
                 color: Color.fromARGB(255, 171, 4, 4),
                 fontWeight: FontWeight.bold),
           ),
         ),
+        // ignore: non_constant_identifier_names
         for (var Human in appState.favorites)
           ListTile(
-            leading: Icon(Icons.favorite),
+            leading: const Icon(Icons.favorite),
             title: Text(Human),
           ),
       ],
@@ -221,6 +226,8 @@ class Achive extends StatelessWidget {
 }
 
 class Human extends StatelessWidget {
+  const Human({super.key});
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -241,8 +248,8 @@ class Human extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(40),
+          const Padding(
+            padding: EdgeInsets.all(40),
             child: Text(
               'Human',
               style: TextStyle(
@@ -256,7 +263,7 @@ class Human extends StatelessWidget {
             pair: pair,
             style: style,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -265,14 +272,14 @@ class Human extends StatelessWidget {
                   appState.toggleFavoriteHuman();
                 },
                 icon: Icon(icon),
-                label: Text('Like'),
+                label: const Text('Like'),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
                   appState.getNextHuman();
                 },
-                child: Text('Next'),
+                child: const Text('Next'),
               ),
             ],
           ),
@@ -283,6 +290,8 @@ class Human extends StatelessWidget {
 }
 
 class Dwarf extends StatelessWidget {
+  const Dwarf({super.key});
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -303,8 +312,8 @@ class Dwarf extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-              padding: const EdgeInsets.all(40),
+          const Padding(
+              padding: EdgeInsets.all(40),
               child: Text(
                 'Dwarf',
                 style: TextStyle(
@@ -314,7 +323,7 @@ class Dwarf extends StatelessWidget {
                     color: Color.fromARGB(255, 107, 2, 2)),
               )),
           BigCard(pair: pair, style: style),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -323,14 +332,14 @@ class Dwarf extends StatelessWidget {
                   appState.toggleFavoriteDwarf();
                 },
                 icon: Icon(icon),
-                label: Text('Like'),
+                label: const Text('Like'),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
                   appState.getNextDwarf();
                 },
-                child: Text('Next'),
+                child: const Text('Next'),
               ),
             ],
           ),
@@ -341,6 +350,8 @@ class Dwarf extends StatelessWidget {
 }
 
 class Elf extends StatelessWidget {
+  const Elf({super.key});
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -361,8 +372,8 @@ class Elf extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-              padding: const EdgeInsets.all(40),
+          const Padding(
+              padding: EdgeInsets.all(40),
               child: Text(
                 'Elf',
                 style: TextStyle(
@@ -375,7 +386,7 @@ class Elf extends StatelessWidget {
             pair: pair,
             style: style,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -384,14 +395,14 @@ class Elf extends StatelessWidget {
                   appState.toggleFavoriteElf();
                 },
                 icon: Icon(icon),
-                label: Text('Like'),
+                label: const Text('Like'),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
                   appState.getNextElf();
                 },
-                child: Text('Next'),
+                child: const Text('Next'),
               ),
             ],
           ),

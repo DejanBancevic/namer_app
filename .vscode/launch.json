@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "DnD_Namer_App",
+            "name": "dnd_namer_app",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "DnD_Namer_App (profile mode)",
+            "name": "dnd_namer_app (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "DnD_Namer_App (release mode)",
+            "name": "dnd_namer_app (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
