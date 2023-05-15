@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
         title: 'dnd_namer_app',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 38, 0)),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 255, 38, 0)),
         ),
         home: const MyHomePage(),
       ),
@@ -121,25 +121,30 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
+  dynamic pageTemp = const Human();
 
   @override
   Widget build(BuildContext context) {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = const Human();
+        page = pageTemp;
         break;
       case 1:
         page = const Achive();
+        pageTemp = const Achive();
         break;
       case 2:
         page = const Human();
+        pageTemp = const Human();
         break;
       case 3:
         page = const Dwarf();
+        pageTemp = const Dwarf();
         break;
       case 4:
         page = const Elf();
+        pageTemp = const Elf();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
